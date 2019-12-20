@@ -3,16 +3,12 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-// const morgan = require("morgan");
 const bodyParser = require( "body-parser");
 const cors = require( "cors");
 const userRouter = require( "./routes/user");
-// const boardRouter = require ("./api/routes/boards");
-// const columnRouter = require( "./routes/columns");
 const cardRouter = require( "./routes/cards");
 const columnRouter = require( "./routes/columns");
 
-// require('dotenv').config();
 const app = express();
 app.use(helmet());
 const limit = rateLimit({
@@ -27,9 +23,7 @@ app.use(express.json({ limit: '10kb' })); // Body limit is 10
 app.use(mongoSanitize());
 // Data Sanitization against XSS attacks
 app.use(xss());
-// app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
-// app.use(bodyParser.json());
 app.options('*',cors());
 app.use(cors());
 app.use(cors({credentials : true, origin : ['localhost:3000']}));
@@ -52,7 +46,6 @@ app.use((error,req,res,next)=>{
                 message:error.message
             }})
 });
-
 
 module.exports =app;
 

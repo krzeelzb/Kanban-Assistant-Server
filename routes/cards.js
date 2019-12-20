@@ -37,7 +37,6 @@ cardRouter.post('/getAllCards', async (req, res) => {
 cardRouter.delete('/delete', auth, async (req, res) => {
     const user = await User.findById(req.user._id).select("-password");
     const {cardId} = req.body;
-    console.log(req);
     deleteCard(req, res, cardId)
 });
 
@@ -73,7 +72,6 @@ const deleteCard = async (req, res, cardId) => {
         const column = await Column.findOne({columnId: card.column}).exec();
         if (!column) {
             return res.status(404).json()
-            // .json({message: "Column of provided id doesn't exist"});
         }
         let cardIds = Array.from(column.cardIds);
         cardIds = cardIds.filter((i => i !== cardId));
@@ -100,24 +98,16 @@ const addCard = async (req, res, title, columnId, cardId) => {
         if (!column) {
             return res
                 .status(404).json();
-            // .json({message: "Column of provided id doesn't exist"});
         }
         const newCardIds = Array.from(column.cardIds);
         newCardIds.push(result.cardId);
         column.set({cardIds: newCardIds});
         const result2 = await column.save();
         return res.status(201).json();
-        // return res.status(201).json({
-        //     // message: 'new card is created and also cardIds in column is also updated',
-        //     // card: result,
-        //     // column: result2,
-        // });
     } catch (e) {
         return res
             .status(404).json();
-        // .json({message: "error"});
     }
 };
-//TODO: more routes
 
 module.exports = cardRouter;
