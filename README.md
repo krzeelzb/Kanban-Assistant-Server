@@ -8,5 +8,10 @@ The functionalities include:
 - displaying Kanban Table
 
 The frontend is implemented here:
+https://github.com/krzeelzb/kanban-assistant-client
+
+
+Action on Google Assistant communicating with the server:
+https://github.com/krzeelzb/Kanban-Assistant
 
 The project was implemented as a part of Bachelor Thesis.
